@@ -1,0 +1,25 @@
+{
+  "name": "cs403_team_adventures",
+  "version": "1.0.0",
+  "description": "GROUP PROJECT REPOSITORY",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Danmhar/CS403_TEAM_ADVENTURES.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Danmhar/CS403_TEAM_ADVENTURES/issues"
+  },
+  "homepage": "https://github.com/Danmhar/CS403_TEAM_ADVENTURES#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
+  }
+}
