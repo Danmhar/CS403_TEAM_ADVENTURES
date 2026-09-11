@@ -2,7 +2,7 @@ const express = require("express");
 const port = 3000;
 
 const students = [
-    { id: nextId++, name: "Alice", course: "BSCS"},
+    {id: nextId++, name: "Alice", course: "BSCS"},
     {id: nextId++, name: "Bob", course: "BSIT"},
     {id: nextId++, name: "Cara", course: "BSCS"}
 ];
