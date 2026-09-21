@@ -19,7 +19,11 @@
   },
   "homepage": "https://github.com/Danmhar/CS403_TEAM_ADVENTURES#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.1",
     "express": "^5.2.1",
-    "nodemon": "^3.1.14"
+    "jsonwebtoken": "^9.0.3",
+    "nodemon": "^3.1.14",
+    "pg": "^8.23.0"
   }
 }
