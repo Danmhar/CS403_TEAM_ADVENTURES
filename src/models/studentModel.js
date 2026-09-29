@@ -1,110 +1,62 @@
-const bcrypt = require("bcryptjs");
+const pool = require("../config/database");
 
-let nextId = 1;
+const getAllStudents = async () => {
+    const result = await pool.query(
+        "SELECT id, name, course FROM students ORDER BY id"
+    );
 
-const students = [
-    {
-        id: nextId++,
-        name: "Alice",
-        course: "BSCS",
-        email: "alice@example.com",
-        password: null,
-        role: "user"
-    },
-    {
-        id: nextId++,
-        name: "Bob",
-        course: "BSIT",
-        email: "bob@example.com",
-        password: null,
-        role: "user"
-    },
-    {
-        id: nextId++,
-        name: "Cara",
-        course: "BSCS",
-        email: "cara@example.com",
-        password: null,
-        role: "user"
-    },
-    
-    {
-        id: nextId++,
-        name: "Admin Student",
-        course: "Not yet assigned",
-        email: "admin@example.com",
-        password: bcrypt.hashSync("123456", 10),
-        role: "admin"
-     }
-];
-
-const getAllStudents = () => {
-    return students;
+    return result.rows;
 };
 
-const getStudentById = (id) => {
-    return students.find((student) => student.id === id);
+const getStudentById = async (id) => {
+    const result = await pool.query(
+        "SELECT id, name, course FROM students WHERE id = $1",
+        [id]
+    );
+
+    return result.rows[0] || null;
 };
 
-const createStudent = (
-    name,
-    course,
-    email = null,
-    password = null,
-    role = "user"
-) => {
-    const newStudent = {
-        id: nextId++,
-        name,
-        course,
-        email,
-        password,
-        role,
-    };
+const createStudent = async (name, course) => {
+    const result = await pool.query(
+        `INSERT INTO students (name, course)
+         VALUES ($1, $2)
+         RETURNING id, name, course`,
+        [name, course]
+    );
 
-    students.push(newStudent);
-
-    return newStudent;
+    return result.rows[0];
 };
 
-const findStudentByEmail = (email) => {
-    return students.find((student) => student.email === email);
+const updateStudent = async (id, name, course) => {
+    const result = await pool.query(
+        `UPDATE students
+         SET
+            name = COALESCE($2, name),
+            course = COALESCE($3, course)
+         WHERE id = $1
+         RETURNING id, name, course`,
+        [id, name, course]
+    );
+
+    return result.rows[0] || null;
 };
 
-const updateStudent = (id, name, course) => {
-    const student = students.find((student) => student.id === id);
+const deleteStudent = async (id) => {
+    const result = await pool.query(
+        `DELETE FROM students
+         WHERE id = $1
+         RETURNING id, name, course`,
+        [id]
+    );
 
-    if (!student) {
-        return null;
-    }
-
-    if (name) {
-        student.name = name;
-    }
-
-    if (course) {
-        student.course = course;
-    }
-
-    return student;
-};
-
-const deleteStudent = (id) => {
-    const index = students.findIndex((student) => student.id === id);
-
-    if (index === -1) {
-        return null;
-    }
-
-    return students.splice(index, 1)[0];
+    return result.rows[0] || null;
 };
 
 module.exports = {
     getAllStudents,
     getStudentById,
     createStudent,
-    findStudentByEmail,
     updateStudent,
     deleteStudent,
-    getAllStudents,
 };

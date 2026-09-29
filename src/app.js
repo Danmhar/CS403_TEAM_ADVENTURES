@@ -1,44 +1,35 @@
 const express = require("express");
 
-const studentRoutes = require("./routes/studentRoutes");
-const authRoutes = require("./routes/authRoutes");
-const studentModel = require("./models/studentModel");
-const authMiddleware = require("./middlewares/authMiddleware");
-const adminMiddleware = require("./middlewares/adminMiddleware");
+const studentRoutes =
+    require("./routes/studentRoutes");
+
+const authRoutes =
+    require("./routes/authRoutes");
+
+const swaggerUi = 
+    require('swagger-ui-express');
+
+const swaggerSpec = 
+    require('./config/swagger');
+
 
 const app = express();
 
+
 app.use(express.json());
 
-app.use("/students", studentRoutes);
-app.use("/auth", authRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.get("/profile", authMiddleware, (request, response) => {
-    response.send({
-        message: "Profile accessed successfully",
-        user: request.user
-    });
-});
-
-app.get(
-    "/admin/users",
-    authMiddleware,
-    adminMiddleware,
-    (request, response) => {
-        const students = studentModel.getAllStudents();
-
-        const users = students.map((student) => ({
-            id: student.id,
-            name: student.name,
-            course: student.course,
-            email: student.email,
-            role: student.role
-        }));
-
-        response.json({
-            users
-        });
-    }
+app.use(
+    "/auth",
+    authRoutes
 );
+
+
+app.use(
+    "/students",
+    studentRoutes
+);
+
 
 module.exports = app;

@@ -4,7 +4,10 @@
   "description": "GROUP PROJECT REPOSITORY",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:test": "node src/config/testDatabase.js",
+    "db:init": "node src/config/initDatabase.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +27,8 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "nodemon": "^3.1.14",
-    "pg": "^8.23.0"
+    "pg": "^8.23.0",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1"
   }
 }
