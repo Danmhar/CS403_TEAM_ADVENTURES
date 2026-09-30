@@ -2,7 +2,7 @@
 
 A RESTful API for managing student records, built with Express and PostgreSQL. Features CRUD operations, JWT authentication with refresh token rotation, input validation, and interactive API documentation via Swagger.
 
-**Team:** Adrian Nunez, Ace Dandan, Paolo Demeterio, Danmhar Padual
+**Team:** Adrian Nunez, Ace Dandan, Paulo Demeterio, Danmhar Padual
 
 ---
 
