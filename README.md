@@ -67,16 +67,16 @@ git clone https://github.com/Danmhar/CS403_TEAM_ADVENTURES.git
 cd CS403_TEAM_ADVENTURES
 ```
  
-### 2. Create a database
- 
-Run this in pgAdmin's Query Tool, or any PostgreSQL session:
- 
+### 2. Database
+
+This project uses a shared PostgreSQL database hosted remotely. Ask a team member for the connection details (`DB_HOST`, `DB_USER`, `DB_PASSWORD`) to put in your `.env` file.
+
+If you'd rather run your own local database instead, create one with:
 ```sql
-CREATE DATABASE your_database_name;
+CREATE DATABASE db_name;
 ```
- 
-You can use any database name. Just make sure it matches `DB_NAME` in your `.env` file. Your database user also needs permission to create and alter tables, since the app creates and updates its tables automatically on startup.
- 
+and update `DB_HOST` to `localhost` in your `.env`.
+
 ### 3. Install dependencies
  
 ```bash
