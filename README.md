@@ -66,7 +66,7 @@ server.js                    # Entry point
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Danmhar/CS403_TEAM_ADVENTURES.git
 cd CS403_TEAM_ADVENTURES
 ```
 
