@@ -103,6 +103,45 @@ const updateStudent = async (request, response) => {
     }
 };
 
+const replaceStudent = async (request, response) => {
+    try {
+        if (!isStudentId(request.params.id)) {
+            return response.status(400).send({ message: "Invalid student ID" });
+        }
+        const id = Number(request.params.id);
+
+        const { name, course } = request.body || {};
+
+        if (!isText(name, 100)) {
+            return response.status(400).send({
+                message: "Name is required and must be valid text",
+            });
+        }
+
+        if (!isText(course, 50)) {
+            return response.status(400).send({
+                message: "Course is required and must be valid text",
+            });
+        }
+
+        const updatedStudent = await studentModel.updateStudent(id, name, course);
+
+        if (!updatedStudent) {
+            return response.status(404).send({
+                message: "Student not found",
+            });
+        }
+
+        response.send(updatedStudent);
+    } catch (error) {
+        console.error(error);
+
+        response.status(500).send({
+            message: "Database error",
+        });
+    }
+};
+
 const deleteStudent = async (request, response) => {
     try {
         if (!isStudentId(request.params.id)) {
@@ -134,4 +173,5 @@ module.exports = {
     createStudent,
     updateStudent,
     deleteStudent,
+    replaceStudent,
 };

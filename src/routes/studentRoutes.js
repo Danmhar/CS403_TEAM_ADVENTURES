@@ -92,7 +92,49 @@ router.post("/", authenticateToken, studentController.createStudent);
  * @swagger
  * /students/{id}:
  *   put:
- *     summary: Update a student
+ *     summary: Replace a student (both name and course required)
+ *     tags: [Students]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [name, course]
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Juan Dela Cruz
+ *               course:
+ *                 type: string
+ *                 example: BSIT
+ *     responses:
+ *       200:
+ *         description: Student replaced
+ *       400:
+ *         description: Both name and course are required
+ *       401:
+ *         description: Missing or invalid token
+ *       404:
+ *         description: Student not found
+ *       500:
+ *         description: Database error
+ */
+router.put("/:id", authenticateToken, studentController.replaceStudent);
+
+/**
+ * @swagger
+ * /students/{id}:
+ *   patch:
+ *     summary: Partially update a student (only changed fields required)
  *     tags: [Students]
  *     security:
  *       - bearerAuth: []
@@ -127,7 +169,7 @@ router.post("/", authenticateToken, studentController.createStudent);
  *       500:
  *         description: Database error
  */
-router.put("/:id", authenticateToken, studentController.updateStudent);
+router.patch("/:id", authenticateToken, studentController.updateStudent);
 
 /**
  * @swagger
